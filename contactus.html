@@ -11,15 +11,12 @@ body {
     margin: 0;
     height: 100vh;
     font-family: Poppins, Arial, sans-serif;
-    background: linear-gradient(135deg, #00c6ff,lightblue
-    );
+    background: linear-gradient(135deg, #00c6ff, lightblue);
     display: flex;
     justify-content: center;
     align-items: center;
     animation: fadeIn 1.5s ease-in-out;
 }
-
-/* Fade in effect */
 @keyframes fadeIn {
     from { opacity: 0; }
     to { opacity: 1; }
@@ -37,8 +34,6 @@ body {
     color: rgb(15, 11, 11);
     animation: slideUp 1s ease-out;
 }
-
-/* Slide Up Animation */
 @keyframes slideUp {
     from { transform: translateY(40px); opacity: 0; }
     to { transform: translateY(0); opacity: 1; }
@@ -48,7 +43,6 @@ h1 {
     text-align: center;
     font-size: 32px;
     margin-bottom: 15px;
-    letter-spacing: 1px;
 }
 
 /* ======== Floating Labels ======== */
@@ -95,13 +89,19 @@ h1 {
 .input-field input:not(:placeholder-shown) + label,
 .input-field textarea:focus + label,
 .input-field textarea:not(:placeholder-shown) + label,
-.input-field select:focus + label {
+.input-field select:valid + label {
     top: -10px;
     left: 10px;
     font-size: 13px;
     background: rgba(0,0,0,0.3);
     padding: 2px 6px;
     border-radius: 5px;
+}
+
+/* Validation red border */
+.error {
+    border-color: red !important;
+    box-shadow: 0 0 8px red !important;
 }
 
 /* ======== Submit Button ======== */
@@ -119,13 +119,10 @@ button {
     overflow: hidden;
     transition: 0.3s;
 }
-
 button:hover {
     transform: scale(1.05);
     box-shadow: 0 0 15px rgba(255,255,255,0.5);
 }
-
-/* Ripple Effect */
 button::after {
     content: "";
     position: absolute;
@@ -139,7 +136,6 @@ button::after {
     transform: scale(1);
     transition: 0.6s;
 }
-
 button:active::after {
     opacity: 1;
     transform: scale(15);
@@ -151,48 +147,83 @@ textarea {
 }
 </style>
 </head>
-
 <body>
 
 <div class="form-container">
-
     <h1>📩 Contact Us</h1>
 
-    <div class="input-field">
-        <input type="text" required placeholder=" " />
-        <label>👤 Full Name</label>
-    </div>
+    <form id="contactForm">
+        <div class="input-field">
+            <input type="text" id="name" required placeholder=" " />
+            <label>👤 Full Name</label>
+        </div>
 
-    <div class="input-field">
-        <input type="email" required placeholder=" " />
-        <label>📧 Email Address</label>
-    </div>
+        <div class="input-field">
+            <input type="email" id="email" required placeholder=" " />
+            <label>📧 Email Address</label>
+        </div>
 
-    <div class="input-field">
-        <input type="text" required placeholder=" " />
-        <label>📱 Phone Number</label>
-    </div>
+        <div class="input-field">
+            <input type="text" id="phone" required placeholder=" " />
+            <label>📱 Phone Number</label>
+        </div>
 
-    <div class="input-field">
-        <select required>
-            <option value="" disabled selected hidden></option>
-            <option>General Inquiry</option>
-            <option>Water Quality Issue</option>
-            <option>Sanitation Complaint</option>
-            <option>Government Scheme Support</option>
-            <option>Technical Support</option>
-            <option>Other</option>
-        </select>
-        <label>❓ Reason for Contacting</label>
-    </div>
+        <div class="input-field">
+            <select id="reason" required>
+                <option value="" disabled selected hidden></option>
+                <option>General Inquiry</option>
+                <option>Water Quality Issue</option>
+                <option>Sanitation Complaint</option>
+                <option>Government Scheme Support</option>
+                <option>Technical Support</option>
+                <option>Other</option>
+            </select>
+            <label>❓ Reason for Contacting</label>
+        </div>
 
-    <div class="input-field">
-        <textarea required placeholder=" "></textarea>
-        <label>📝 Your Message</label>
-    </div>
+        <div class="input-field">
+            <textarea id="message" required placeholder=" "></textarea>
+            <label>📝 Your Message</label>
+        </div>
 
-    <button type="submit">Submit</button>
+        <button type="submit">Submit</button>
+    </form>
 </div>
+
+
+<!-- ================= JavaScript Validation ================= -->
+<script>
+document.getElementById("contactForm").addEventListener("submit", function(event) {
+    event.preventDefault(); // stop form submit
+
+    let name = document.getElementById("name");
+    let email = document.getElementById("email");
+    let phone = document.getElementById("phone");
+    let reason = document.getElementById("reason");
+    let message = document.getElementById("message");
+
+    let fields = [name, email, phone, reason, message];
+    let valid = true;
+
+    fields.forEach(field => {
+        if (!field.value || field.value.trim() === "") {
+            field.classList.add("error");
+            valid = false;
+        } else {
+            field.classList.remove("error");
+        }
+    });
+
+    if (!valid) {
+        alert("⚠ Please fill all the fields before submitting!");
+        return;
+    }
+
+    alert("✅ Form submitted successfully!");
+});
+</script>
 
 </body>
 </html>
+
+
