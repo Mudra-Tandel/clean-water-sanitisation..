@@ -1,12 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Contact Us - Dynamic Form</title>
 
 <style>
-/* ======== Dynamic Background ======== */
+
 body {
     margin: 0;
     height: 100vh;
@@ -22,7 +19,7 @@ body {
     to { opacity: 1; }
 }
 
-/* ======== Glassmorphism Form ======== */
+
 .form-container {
     width: 90%;
     max-width: 500px;
@@ -45,7 +42,7 @@ h1 {
     margin-bottom: 15px;
 }
 
-/* ======== Floating Labels ======== */
+
 .input-field {
     position: relative;
     margin: 22px 0;
@@ -65,7 +62,7 @@ h1 {
     transition: 0.3s;
 }
 
-/* On focus glow effect */
+
 .input-field input:focus,
 .input-field select:focus,
 .input-field textarea:focus {
@@ -73,7 +70,6 @@ h1 {
     box-shadow: 0 0 10px #00f7ff;
 }
 
-/* Label styling */
 .input-field label {
     position: absolute;
     top: 14px;
@@ -84,7 +80,7 @@ h1 {
     transition: 0.3s;
 }
 
-/* Floating effect */
+
 .input-field input:focus + label,
 .input-field input:not(:placeholder-shown) + label,
 .input-field textarea:focus + label,
@@ -98,13 +94,13 @@ h1 {
     border-radius: 5px;
 }
 
-/* Validation red border */
+
 .error {
     border-color: red !important;
     box-shadow: 0 0 8px red !important;
 }
 
-/* ======== Submit Button ======== */
+
 button {
     width: 100%;
     padding: 14px;
@@ -154,17 +150,17 @@ textarea {
 
     <form id="contactForm">
         <div class="input-field">
-            <input type="text" id="name" required placeholder=" " />
+            <input type="text" id="name"  />
             <label>👤 Full Name</label>
         </div>
 
         <div class="input-field">
-            <input type="email" id="email" required placeholder=" " />
+            <input type="email" id="email"  />
             <label>📧 Email Address</label>
         </div>
 
         <div class="input-field">
-            <input type="text" id="phone" required placeholder=" " />
+            <input type="text" id="phone" />
             <label>📱 Phone Number</label>
         </div>
 
@@ -182,7 +178,7 @@ textarea {
         </div>
 
         <div class="input-field">
-            <textarea id="message" required placeholder=" "></textarea>
+            <textarea id="message"></textarea>
             <label>📝 Your Message</label>
         </div>
 
@@ -191,7 +187,7 @@ textarea {
 </div>
 
 
-<!-- ================= JavaScript Validation ================= -->
+
 <script>
 document.getElementById("contactForm").addEventListener("submit", function(event) {
     event.preventDefault(); // stop form submit
@@ -213,6 +209,10 @@ document.getElementById("contactForm").addEventListener("submit", function(event
             field.classList.remove("error");
         }
     });
+    if (!valid) {
+        alert("⚠ Please enter your details before submitting!");
+        return;
+    }
 
     if (!valid) {
         alert("⚠ Please fill all the fields before submitting!");
@@ -225,5 +225,3 @@ document.getElementById("contactForm").addEventListener("submit", function(event
 
 </body>
 </html>
-
-
